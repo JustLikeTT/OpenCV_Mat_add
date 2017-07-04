@@ -5,8 +5,9 @@
 
 using namespace cv;
 
-Mat ReadImg(char *, const char *);
-Mat AddImg(Mat, Mat);
+Mat ReadImg(char *, const char *);	//讀取圖片檔案
+Mat AddImg(Mat, Mat);	//圖片相加
+Mat Pix_visit(Mat a,int pix_scalar);	// 像素尋訪
 int main()
 {
 	const char *path1 = "C:\\Users\\bluesky\\Desktop\\green.jpg";
@@ -17,6 +18,7 @@ int main()
 
 	Mat result = AddImg(a1, a2);
 	// 顯示結果圖片
+	result = Pix_visit(result, 20);
 	imshow("result", result);
 	waitKey(0);
 	pause;
@@ -45,4 +47,15 @@ Mat AddImg(Mat input1, Mat input2)
 	//output = input1 + input2; 等同add();
 	add(input1, input2, output);
 	return output;
+}
+Mat Pix_visit(Mat a, int pix)
+{
+	for (int row = 0; row < a.rows; row++)
+	{
+		for (int col = 0; col < a.cols; col++)
+		{
+			a.at<uchar>(row, col) += pix;
+		}
+	}
+	return a;
 }
